@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const baseUrl = "http://localhost:59749/api/"
 
+//eslint-disable-next-line
 export default {
     advisor(url = baseUrl + 'advisor') {
         return {
