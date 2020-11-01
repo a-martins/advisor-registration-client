@@ -1,27 +1,27 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 const useForm = (initialFieldValues, validate, setCurrentId) => {
     const [values, setValues] = useState(initialFieldValues);
     const [errors, setErrors] = useState([]);
 
     const handleInputChange = e => {
-        const { name, value } = e.target
-        const fieldValue = { [name]: value }
+        const { name, value } = e.target;
+        const fieldValue = { [name]: value };
 
         setValues({
             ...values,
             ...fieldValue
-        })
-        validate(fieldValue)
-    }
+        });
+        validate(fieldValue);
+    };
 
     const resetForm = () => {
         setValues({
             ...initialFieldValues
-        })
-        setErrors({})
-        setCurrentId(0)
-    }
+        });
+        setErrors({});
+        setCurrentId(0);
+    };
 
     return {
         values,
@@ -30,7 +30,7 @@ const useForm = (initialFieldValues, validate, setCurrentId) => {
         setErrors,
         resetForm,
         handleInputChange
-    }
+    };
 }
 
-export default useForm
+export default useForm;

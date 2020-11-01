@@ -5,12 +5,12 @@ export const ACTION_TYPE = {
     UPDATE: 'UPDATE',
     DELETE: 'DELETE',
     FETCH_ALL: 'FETCH_ALL'
-}
+};
 
 const formateData = data => ({
     ...data,
     registryNumber: parseInt(data.registryNumber ? data.registryNumber : 0)
-})
+});
 
 export const fetchAll = () => dispatch => {
     api.advisor()
@@ -21,8 +21,8 @@ export const fetchAll = () => dispatch => {
                 payload: response.data
             })
         })
-        .catch(err => console.log(err))
-}
+        .catch(err => console.log(err));
+};
 
 export const create = (data, onSuccess) => dispatch => {
     data = formateData(data);
@@ -35,8 +35,8 @@ export const create = (data, onSuccess) => dispatch => {
             })
             onSuccess()
         })
-        .catch(err => console.log(err))
-}
+        .catch(err => console.log(err));
+};
 
 export const update = (id, data, onSuccess) => dispatch => {
     data = formateData(data);
@@ -49,11 +49,11 @@ export const update = (id, data, onSuccess) => dispatch => {
                     id,
                     ...data
                 }
-            })
-            onSuccess()
+            });
+            onSuccess();
         })
-        .catch(err => console.log(err))
-}
+        .catch(err => console.log(err));
+};
 
 export const Delete = (id, onSuccess) => dispatch => {
     api.advisor()
@@ -62,8 +62,8 @@ export const Delete = (id, onSuccess) => dispatch => {
             dispatch({
                 type: ACTION_TYPE.DELETE,
                 payload: id
-            })
-            onSuccess()
+            });
+            onSuccess();
         })
-        .catch(err => console.log(err))
-}
+        .catch(err => console.log(err));
+};

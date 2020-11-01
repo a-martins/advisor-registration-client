@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { Button, Grid, TextField, withStyles } from '@material-ui/core'
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Button, Grid, TextField, withStyles } from '@material-ui/core';
 
-import * as actions from '../actions/advisor'
-import useForm from '../hooks/useForm'
+import * as actions from '../actions/advisor';
+import useForm from '../hooks/useForm';
 
-import { useToasts } from 'react-toast-notifications'
+import { useToasts } from 'react-toast-notifications';
 
 const style = theme => ({
     root: {
@@ -17,67 +17,67 @@ const style = theme => ({
     smMargin: {
         margin: theme.spacing(1)
     }
-})
+});
 
 const initialFieldValues = {
     fullName: "",
     email: "",
     mobile: "",
     registryNumber: ""
-}
+};
 
 const AdvisorForm = ({ classes, ...props }) => {
-    const { currentId, setCurrentId } = props
-    const { addToast } = useToasts()
+    const { currentId, setCurrentId } = props;
+    const { addToast } = useToasts();
 
     const validate = (fieldValues = values) => {
-        let errorObject = { ...errors }
+        let errorObject = { ...errors };
 
         if ('fullName' in fieldValues)
-            errorObject.fullName = fieldValues.fullName ? "" : "This field is required."
+            errorObject.fullName = fieldValues.fullName ? "" : "This field is required.";
 
         if ('mobile' in fieldValues)
-            errorObject.mobile = fieldValues.mobile ? "" : "This field is required."
+            errorObject.mobile = fieldValues.mobile ? "" : "This field is required.";
 
         if ('registryNumber' in fieldValues)
-            errorObject.registryNumber = fieldValues.registryNumber ? "" : "This field is required."
+            errorObject.registryNumber = fieldValues.registryNumber ? "" : "This field is required.";
 
         if ('email' in fieldValues)
-            errorObject.email = (/.+@.+..+/).test(fieldValues.email) ? "" : "Email is empty or not valid."
+            errorObject.email = (/.+@.+..+/).test(fieldValues.email) ? "" : "Email is empty or not valid.";
 
         setErrors({
             ...errorObject
-        })
+        });
 
         if (fieldValues === values)
-            return Object.values(errorObject).every(x => x === "")
+            return Object.values(errorObject).every(x => x === "");
     }
 
-    const { values, setValues, errors, setErrors, handleInputChange, resetForm } = useForm(initialFieldValues, validate, setCurrentId)
+    const { values, setValues, errors, setErrors, handleInputChange, resetForm } = useForm(initialFieldValues, validate, setCurrentId);
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         if (validate()) {
             const onSuccess = () => {
-                resetForm()
-                addToast("Submitted successfully", { appearance: 'success' })
-            }
+                resetForm();
+                addToast("Submitted successfully", { appearance: 'success' });
+            };
             if (currentId === 0)
-                props.createAdvisor(values, onSuccess)
+                props.createAdvisor(values, onSuccess);
             else
-                props.updateAdvisor(currentId, values, onSuccess)
-        }
-    }
+                props.updateAdvisor(currentId, values, onSuccess);
+        };
+    };
 
     useEffect(() => {
         if (currentId !== 0) {
             setValues({
                 ...props.advisorsList.find(x => x.id === currentId)
-            })
-            setErrors({})
-        }
+            });
+            setErrors({});
+        };
         //eslint-disable-next-line
-    }, [currentId])
+    }, [currentId]);
 
     return (
         <form autoComplete="off" noValidate className={classes.root} onSubmit={handleSubmit}>
@@ -138,16 +138,16 @@ const AdvisorForm = ({ classes, ...props }) => {
                 </Grid>
             </Grid>
         </form>
-    )
-}
+    );
+};
 
 const mapStateToProps = state => ({
     advisorsList: state.advisor.list
-})
+});
 
 const mapActionToProps = {
     createAdvisor: actions.create,
     updateAdvisor: actions.update
-}
+};
 
-export default connect(mapStateToProps, mapActionToProps)(withStyles(style)(AdvisorForm))
+export default connect(mapStateToProps, mapActionToProps)(withStyles(style)(AdvisorForm));

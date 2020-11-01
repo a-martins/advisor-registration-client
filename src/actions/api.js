@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = "http://localhost:59749/api/"
+const baseUrl = "http://localhost:59749/api/";
 
 //eslint-disable-next-line
 export default {
@@ -11,6 +11,6 @@ export default {
             create: newAdvisor => axios.post(url, newAdvisor),
             update: (id, updatedAdvisor) => axios.put(`${url}\\${id}`, updatedAdvisor),
             delete: id => axios.delete(`${url}\\${id}`)
-        }
-    }
-}
+        };
+    },
+};
